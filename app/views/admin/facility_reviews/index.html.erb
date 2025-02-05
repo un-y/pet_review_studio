@@ -1,0 +1,17 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<h1>お店・施設レビュー一覧</h1>
+
+<% if @facility_reviews.present? %>
+  <% @facility_reviews.each do |facility_review| %>
+    <div class="review">
+      <p><strong>評価:</strong> <%= facility_review.evaluation %> / 5</p>
+      <p><strong>コメント:</strong> <%= facility_review.comment %></p>
+      <p><strong>投稿者:</strong> <%= facility_review.user.name %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>まだレビューが投稿されていません。</p>
+<% end %>

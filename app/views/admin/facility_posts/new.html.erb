@@ -1,0 +1,38 @@
+<%= render 'admin/shared/list', items: @admin_facility_posts_path %>
+
+<h1>新規施設投稿フォーム</h1>
+
+<%= form_with(model: @facility_post, local: true) do |f| %>
+  <h4>お店・施設名</h4>
+    <%= f.text_field :name %>
+  
+  <h4>施設ジャンル</h4>
+  <%= f.select :facility_genre_id, options_from_collection_for_select(@facility_genres, :id, :name), prompt: "選択してください" %>
+
+<h4>ペットジャンル</h4>
+  <% @pet_genres.each do |pet_genre| %>
+    <div>
+      <%= f.check_box :pet_genre_ids, { multiple: true }, pet_genre.id, nil %>
+      <%= f.label :pet_genre_ids, pet_genre.name, value: pet_genre.id %>
+    </div>
+  <% end %>
+
+  <h4>所在地</h4>
+    <%= f.text_field :address %>
+
+  <h4>営業時間</h4>
+  <div class="time-field">
+  <%= f.time_select :opening_time, prompt: true %> 〜
+  <%= f.time_select :closing_time, prompt: true %>
+  </div>
+
+  <h4>お店・施設説明</h4>
+    <%= f.text_area :introduction %>
+
+  <h4>料金一覧</h4>
+    <%= f.text_area :prices %>
+
+  <div>
+    <%= f.submit '投稿', class:'btn btn-success' %>
+  </div>
+<% end %>

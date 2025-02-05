@@ -1,0 +1,14 @@
+<h1>レビュー編集</h1>
+
+<%= form_for([@facility_post, @facility_review]) do |facility_review| %>
+  <label>評価</label>
+    <%= facility_review.number_field :evaluation, in: 1..5 %>
+
+  <label>コメント</label>
+    <%= facility_review.text_area :comment %> 
+
+  <div>
+    <%= facility_review.submit "更新する" %>
+  </div>
+
+<% end %>

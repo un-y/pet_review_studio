@@ -1,0 +1,44 @@
+<h1>商品投稿一覧</h1>
+<ul>
+  <li>
+    <%= link_to "新規投稿", new_item_post_path %>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品ジャンル</th>
+      <th>ペットジャンル</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @item_posts.each do |item_post| %>
+    <tr>
+      <td>画像の予定
+      </td>
+      <td class="item_post-name"><%= link_to item_post.name, item_post_path(item_post) %></td>
+      <td class="item_post-prices"><%= item_post.prices %></td>
+      <td class="item_genre"><%= item_post.item_genre.name %></td>
+      <td class="pet_genre">
+        <% if item_post.pet_genres.any? %>
+          <%= item_post.pet_genres.map(&:name).join(', ') %>
+        <% else %>
+          なし
+        <% end %>
+      </td>
+      <td><%= link_to "編集", edit_item_post_path(item_post) %></td>
+      <td>
+      <% if item_post %>
+        <%= link_to "削除", item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      <% end %>    
+    </td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+  </div>
+</div>

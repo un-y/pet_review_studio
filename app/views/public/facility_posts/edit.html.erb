@@ -1,0 +1,39 @@
+<h1>施設投稿編集画面</h1>
+
+<%= form_for @facility_post do |f| %>
+<label>お店・施設名</label>
+  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+
+<label>施設ジャンル</label>
+  <%= f.select :facility_genre_id, options_from_collection_for_select(@facility_genres, :id, :name, @facility_post.facility_genre_id), prompt: "選択してください" %>
+
+
+<label>ペットジャンル</label>
+<% @pet_genres.each do |pet_genre| %>
+  <div>
+    <%= f.check_box :pet_genre_ids, { multiple: true, include_hidden: false }, pet_genre.id, checked: @facility_post.pet_genres.include?(pet_genre) %>
+    <%= f.label :pet_genre_ids, pet_genre.name, value: pet_genre.id %>
+  </div>
+<% end %>
+
+<label>所在地</label>
+  <%= f.text_field :address, autofocus: true, id:"address", placeholder:"address" %>
+
+<label>営業時間</label>
+<div class="time-field">
+  <%= f.time_select :opening_time, { prompt: true, selected: @facility_post.opening_time } %> 〜
+  <%= f.time_select :closing_time, { prompt: true, selected: @facility_post.closing_time } %>
+</div>
+
+  <label>施設説明</label>
+  <%= f.text_area :introduction, autofocus: true, id:"introduction", placeholder:"introduction" %>
+
+<label>料金一覧</label>
+  <%= f.text_area :prices, autofocus: true, id:"prices", placeholder:"prices" %>
+
+  <div>
+    <%= f.submit '更新' %>
+  </div>
+
+  <%= link_to "Back", facility_post_path(@facility_post) %>
+<% end %>

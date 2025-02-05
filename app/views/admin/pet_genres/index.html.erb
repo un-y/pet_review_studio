@@ -1,0 +1,53 @@
+<%= render 'admin/shared/list', items: @admin_pet_genres_path %>
+
+<h1>ペットジャンル一覧</h1>
+
+<%= link_to "追加", new_admin_pet_genre_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ジャンル名</th>
+      <th>作成日時</th>
+      <th>更新日時</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @pet_genres.each do |pet_genre| %>
+    <tr>
+      <td>
+        <%=  pet_genre.id %>
+      </td>
+      <td>
+        <% if pet_genre %>
+          <%= link_to pet_genre.name, admin_pet_genres_path(pet_genre) %>
+        <% end %>
+      </td>
+      <td>
+        <p><%= pet_genre.created_at.strftime("%Y-%m-%d") %></p>
+        <p><%= pet_genre.created_at.strftime("%H:%M") %></p>
+      </td>
+        <td>
+        <p><%= pet_genre.updated_at.strftime("%Y-%m-%d") %></p>
+        <p><%= pet_genre.updated_at.strftime("%H:%M") %></p>
+      </td>
+      <td>
+        <% if pet_genre %>
+          <%= link_to "編集", edit_admin_pet_genre_path(pet_genre.id) %>
+        <% end %>
+      </td>
+      <td>
+        <% if pet_genre %>
+          <%= link_to "削除", admin_pet_genre_path(pet_genre), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% end %>    
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+  </div>
+</div>
+</div>

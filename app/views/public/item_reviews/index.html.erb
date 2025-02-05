@@ -1,0 +1,20 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<h1>商品レビュー一覧</h1>
+
+<% if @item_reviews.present? %>
+  <% @item_reviews.each do |item_review| %>
+    <div class="review">
+      <p><strong>評価:</strong> <%= item_review.evaluation %> / 5</p>
+      <p><strong>コメント:</strong> <%= item_review.comment %></p>
+      <p><strong>投稿者:</strong> <%= item_review.user.name %></p>
+
+        <%= link_to '編集', edit_item_post_item_review_path(item_review.item_post_id, item_review), class: 'btn btn-primary' %> | 
+    <%= link_to '削除', item_post_item_review_path(item_review.item_post_id, item_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+<% else %>
+  <p>まだレビューが投稿されていません。</p>
+  <% end %>

@@ -1,0 +1,21 @@
+<%= render 'admin/shared/list', items: @deshboards %>
+
+<h1>全ユーザー一覧</h1>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.id %> - <%= user.name %> - <%= user.email %>
+      <%= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
+    </li>
+  <% end %>
+</ul>
+
+<h1>全ペットジャンル一覧</h1>
+<ul>
+  <% @pet_genres.each do |pet_genre| %>
+    <li>
+      <%= pet_genre.name %>
+      <%= link_to '削除', admin_pet_genre_path(pet_genre), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
+    </li>
+  <% end %>
+</ul>

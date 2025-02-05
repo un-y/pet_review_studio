@@ -1,0 +1,30 @@
+<h1>商品投稿編集画面</h1>
+
+<%= form_for @item_post do |f| %>
+<label>商品名</label>
+  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+
+<label>商品ジャンル</label>
+  <%= f.select :item_genre_id, options_from_collection_for_select(@item_genres, :id, :name, @item_post.item_genre_id), prompt: "選択してください" %>
+
+
+<label>ペットジャンル</label>
+<% @pet_genres.each do |pet_genre| %>
+  <div>
+    <%= f.check_box :pet_genre_ids, { multiple: true,include_hidden: false,  checked: @item_post.pet_genres.include?(pet_genre)}, pet_genre.id, nil %>
+    <%= f.label :pet_genre_ids, pet_genre.name, value: pet_genre.id %>
+  </div>
+<% end %>
+
+<label>価格</label>
+  <%= f.text_field :prices, autofocus: true, id:"prices", placeholder:"prices" %>
+
+<label>商品説明</label>
+  <%= f.text_area :introduction, autofocus: true, id:"introduction", placeholder:"introduction" %>
+
+  <div>
+    <%= f.submit '更新' %>
+  </div>
+
+  <%= link_to "Back", item_post_path(@item_post) %>
+<% end %>

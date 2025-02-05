@@ -1,0 +1,15 @@
+<h1>商品レビュー投稿</h1>
+
+<%= form_with(model: @item_review, url: item_post_item_reviews_path(@item_post)) do |f| %>
+  <p>レビューする商品: <%= @item_post.name %></p>
+  
+  <p>評価（1〜5）</p>
+  <%= f.number_field :evaluation, in: 1..5 %>
+
+  <p>レビューコメント</p>
+  <%= f.text_area :comment %>
+
+  <div>
+    <%= f.submit '投稿', class: 'btn btn-success' %>
+  </div>
+<% end %>

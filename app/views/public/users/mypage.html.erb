@@ -1,0 +1,46 @@
+<h1>My Page</h1>
+
+<h4>ユーザー名</h4>
+<p><%= @user.name %></p>
+
+<h4>mail</h4>
+<p><%= @user.email %></p>
+
+<%= link_to 'ユーザー情報を編集', edit_user_registration_path %>
+
+<h2>自分が投稿した商品</h2>
+<% @item_posts.each do |item_post| %>
+  <div class="item_post">
+    <h3><%= link_to item_post.name, item_post_path(item_post) %></h3>
+    <p>商品説明:<%= item_post.introduction %></p>
+  </div>
+<% end %>
+
+<h2>自分が投稿したお店・施設</h2>
+<% @facility_posts.each do |facility_post| %>
+  <div class="facility_post">
+    <h3><%= link_to facility_post.name, facility_post_path(facility_post) %></h3>
+    <p>お店・施設説明:<%= facility_post.introduction %></p>
+  </div>
+<% end %>
+
+<h2>自分が投稿した商品レビュー</h2>
+<% @item_reviews.each do |item_review| %>
+  <div class="item_review">
+  <p><strong>商品名:</strong> <%= link_to item_review.item_post.name, item_post_path(item_review.item_post) %></p>
+  <p>評価: <%= item_review.evaluation %> / 5</p>
+  <p>コメント:<%= item_review.comment %></p>
+  </div>
+<% end %>
+
+<h2>自分が投稿したお店・施設レビュー</h2>
+<% @facility_reviews.each do |facility_review| %>
+  <div class="facility_review">
+    <p><strong>お店・施設名:</strong> <%= link_to facility_review.facility_post.name, facility_post_path(facility_review.facility_post) %></p>
+    <p>評価: <%= facility_review.evaluation %> / 5</p>
+    <p>コメント:<%= facility_review.comment %></p>
+  </div>
+<% end %>
+
+<%= link_to '退会する',  deactivate_user_path(user), method: :patch, data: { confirm: '本当にこのユーザーを退会させますか？' } %>
+

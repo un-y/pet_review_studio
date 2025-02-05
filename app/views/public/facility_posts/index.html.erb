@@ -1,0 +1,52 @@
+<h1>施設投稿一覧</h1>
+<ul>
+  <li>
+    <%= link_to "新規投稿", new_facility_post_path %>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>お店・施設名</th>
+      <th>所在地</th>
+      <th>営業時間</th>
+      <th>商品ジャンル</th>
+      <th>ペットジャンル</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @facility_posts.each do |facility_post| %>
+    <tr>
+      <td class="facility_post_image" ><%= link_to user_path(facility_post.user.id) do %>
+       
+        <% end %>
+      </td>
+      <td class="facility_post-name"><%= link_to facility_post.name, facility_post_path(facility_post) %></td>
+      <td class="facility_post-address"><%= facility_post.address %></td>
+      <td class="facility_post-opening_time">
+        <%= facility_post.opening_time.present? ? facility_post.opening_time.strftime('%H:%M') : 'N/A' %>~
+        <%= facility_post.closing_time.present? ? facility_post.closing_time.strftime('%H:%M') : 'N/A' %>
+      </td>
+      <td class="facility_genre"><%= facility_post.facility_genre.name %></td>
+      <td class="pet_genre">
+        <% if facility_post.pet_genres.any? %>
+          <%= facility_post.pet_genres.map(&:name).join(', ') %>
+        <% else %>
+          なし
+        <% end %>
+      </td>
+      <td><%= link_to "編集", edit_facility_post_path(facility_post) %></td>
+      <td>
+      <% if facility_post %>
+        <%= link_to "削除", facility_post_path(facility_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      <% end %>    
+    </td>
+    <% end %>
+    </tbody>
+</table>
+  </div>
+</div>
+

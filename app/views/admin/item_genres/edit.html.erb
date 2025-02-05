@@ -1,0 +1,13 @@
+<h2>商品ジャンル編集</h2>
+
+
+<label>ジャンル名</label>
+<%= form_with model: @item_genre, url: admin_item_genre_path(@item_genre), method: :patch do |f| %>
+  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+
+  <div>
+    <%= f.submit '更新' %>
+  </div>
+
+  <%= link_to "Back", admin_item_genre_path(@item_genre) %>
+<% end %>

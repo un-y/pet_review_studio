@@ -1,0 +1,28 @@
+<%= render 'admin/shared/list', items: @admin_user_path %>
+
+<h1>ユーザー情報編集</h1>
+<%= form_for @user, url: admin_user_path(@user), method: :patch do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  #<div>
+    #<%= f.label :profile_image %>
+    #<%= f.file_field :profile_image %>
+  #</div>
+
+  #<div>
+    #<%= f.label :is_active %>
+    #<%= f.check_box :is_active %>
+  #</div>
+
+  <div>
+    <%= f.submit '更新' %>
+  </div>
+<% end %>

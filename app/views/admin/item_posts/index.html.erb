@@ -1,0 +1,49 @@
+<%= render 'admin/shared/list', items: @admin_item_posts_path %>
+
+<h1>商品投稿一覧</h1>
+<ul>
+  <li>
+    <%= link_to "新規投稿", new_admin_item_post_path %>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品ジャンル</th>
+      <th>ペットジャンル</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @item_posts.each do |item_post| %>
+    <tr>
+      <td>画像の予定</td>
+      <td class="item_post-name"><%= link_to item_post.name, admin_item_post_path(item_post) %></td>
+      <td class="item_post-prices"><%= item_post.prices %></td>
+      <td class="item_genre"><%= item_post.item_genre.name %></td>
+      <td class="pet_genre">
+        <% if item_post.pet_genres.any? %>
+          <%= item_post.pet_genres.map(&:name).join(', ') %>
+        <% else %>
+          なし
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
+      </td>
+      <td><%= link_to "編集", edit_admin_item_post_path(item_post) %></td>
+      <td>
+      <% if item_post %>
+        <%= link_to "削除", admin_item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      <% end %>    
+    </td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+  </div>
+</div>
