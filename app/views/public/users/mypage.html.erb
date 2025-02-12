@@ -42,5 +42,5 @@
   </div>
 <% end %>
 
-<%= link_to '退会する',  deactivate_user_path(user), method: :patch, data: { confirm: '本当にこのユーザーを退会させますか？' } %>
+<%= link_to '退会する',  deactivate_user_path(@user), method: :patch, data: { confirm: '本当にこのユーザーを退会させますか？' } %>
 
