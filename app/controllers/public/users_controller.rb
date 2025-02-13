@@ -21,7 +21,7 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user
+    @user = current_user
     
   end
 

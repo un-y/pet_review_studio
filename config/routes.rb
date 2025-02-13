@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-    resources :users, only: [:mypage, :index, :show, :update]
+    resources :users, only: [:mypage, :index, :show, :edit, :update]
     resources :item_posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]
     resources :facility_posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]
     
