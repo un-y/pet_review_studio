@@ -27,7 +27,7 @@ class Public::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to mypage_users_path, notice: 'プロフィールが更新されました。'
+      redirect_to users_mypage_path, notice: 'プロフィールが更新されました。'
     else
       flash[:alert] = "プロフィールの更新に失敗しました"
       render :edit
