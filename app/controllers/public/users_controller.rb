@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :set_user, only: [:mypage, :edit, :update, :deactivate]
   
   def mypage
-    @user = current_user
+    @user
     @item_posts = @user.item_posts
     @facility_posts = @user.facility_posts
     @item_reviews = @user.item_reviews.includes(:item_post)
@@ -21,12 +21,13 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user
+    
   end
 
   def update
     if @user.update(user_params)
-      redirect_to mypage_public_users_path, notice: 'プロフィールが更新されました。'
+      redirect_to mypage_users_path, notice: 'プロフィールが更新されました。'
     else
       flash[:alert] = "プロフィールの更新に失敗しました"
       render :edit
@@ -48,6 +49,6 @@ class Public::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :is_active)
+    params.require(:user).permit(:name, :email, :is_active, :password, :introduction)
   end
 end
