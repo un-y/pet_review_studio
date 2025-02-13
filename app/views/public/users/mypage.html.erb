@@ -6,7 +6,7 @@
 <h4>mail</h4>
 <p><%= @user.email %></p>
 
-<%= link_to 'ユーザー情報を編集', edit_user_registration_path %>
+<%= link_to 'ユーザー情報を編集', edit_user_path(@user) %>
 
 <h2>自分が投稿した商品</h2>
 <% @item_posts.each do |item_post| %>

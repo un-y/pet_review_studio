@@ -1,3 +1,7 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
 <h1>商品レビュー投稿</h1>
 
 <%= form_with(model: @item_review, url: item_post_item_reviews_path(@item_post)) do |f| %>

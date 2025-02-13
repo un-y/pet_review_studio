@@ -1,5 +1,9 @@
 <%= render 'admin/shared/list', items: @admin_user_path %>
 
+<div>
+  <%= flash[:notice] %>
+</div>
+
 <h1>ユーザー情報詳細</h1>
 
 <h4>ユーザー名</h4>

@@ -1,4 +1,6 @@
 class Public::FacilityReviewsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @facility_post = FacilityPost.find(params[:facility_post_id])
     @facility_reviews = @facility_post.facility_reviews
@@ -47,6 +49,7 @@ class Public::FacilityReviewsController < ApplicationController
     if @facility_review.update(facility_review_params)
       redirect_to facility_post_facility_reviews_path(@facility_post), notice: 'レビュー情報が更新されました'
     else
+      flash[:alert] = "レビュー情報の更新に失敗しました"
       render :edit
     end
   end  

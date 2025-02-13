@@ -1,4 +1,6 @@
 class Public::FacilityPostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @facility_post = FacilityPost.new
     @facility_genres = FacilityGenre.all

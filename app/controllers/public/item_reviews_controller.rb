@@ -1,4 +1,6 @@
 class Public::ItemReviewsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @item_post = ItemPost.find(params[:item_post_id])
     @item_reviews = @item_post.item_reviews
@@ -47,6 +49,7 @@ class Public::ItemReviewsController < ApplicationController
     if @item_review.update(item_review_params)
       redirect_to item_post_item_reviews_path(@item_post), notice: 'レビュー情報が更新されました'
     else
+      flash[:alert] = "レビュー情報の更新に失敗しました"
       render :edit
     end
   end  

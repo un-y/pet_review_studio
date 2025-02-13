@@ -1,3 +1,7 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
 <h1>新規商品投稿フォーム</h1>
 <%= form_with(model: @item_post, local: true) do |f| %>
   <h4>商品名</h4>

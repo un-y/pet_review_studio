@@ -1,4 +1,6 @@
 class Public::ItemPostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @item_post = ItemPost.new
     @item_genres = ItemGenre.all
@@ -41,6 +43,7 @@ class Public::ItemPostsController < ApplicationController
     if @item_post.update(item_post_params)
       redirect_to @item_post, notice: '商品情報が更新されました'
     else
+      flash[:alert] = "商品情報の更新に失敗しました"
       @item_genres = ItemGenre.all
       @pet_genres = PetGenre.all
       render :edit

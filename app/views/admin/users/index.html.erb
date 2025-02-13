@@ -1,5 +1,9 @@
 <%= render 'admin/shared/list', items: @admin_user_path %>
 
+<div>
+  <%= flash[:notice] %>
+</div>
+
 <h1>一般ユーザー一覧</h1>
 
 <table>
