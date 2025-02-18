@@ -36,8 +36,6 @@ Rails.application.routes.draw do
     get 'users/mypage'
     root to: "homes#top"
 
-    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
     resources :users, only: [:mypage, :index, :show, :edit, :update]
     resources :item_posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]
     resources :facility_posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]

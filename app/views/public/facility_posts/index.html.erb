@@ -3,6 +3,14 @@
 </div>
 
 <h1>施設投稿一覧</h1>
+
+<%= form_with(url: facility_posts_path, method: :get, local: true) do |form| %>
+  <div>
+    <%= form.text_field :query, placeholder: '検索...', value: params[:query] %>
+    <%= form.submit '検索' %>
+  </div>
+<% end %>
+
 <ul>
   <li>
     <%= link_to "新規投稿", new_facility_post_path %>
