@@ -8,7 +8,12 @@ class Public::FacilityPostsController < ApplicationController
   end
 
   def index
-    @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres).all
+    if params[:query],present?
+      @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres)
+                            .where('name LIKE ?', "%#{params[:query]}%") 
+    else
+      @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres).all
+    end
   end
 
   def show

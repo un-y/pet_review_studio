@@ -6,6 +6,15 @@ class Admin::UsersController < ApplicationController
     @users = User.all
   end
 
+  def index
+    if params[:query],present?
+      @users = User.all
+                    .where('name LIKE ?', "%#{params[:query]}%") 
+    else
+      @users = User.all
+    end
+  end
+
   def show
     @user = User.find(params[:id])
 
