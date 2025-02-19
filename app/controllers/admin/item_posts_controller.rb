@@ -6,13 +6,23 @@ class Admin::ItemPostsController < ApplicationController
   end
   
   def index
+    @item_posts = ItemPost.includes(:item_genre, :pet_genres)
+  
     if params[:query].present?
-      @item_posts = ItemPost.includes(:item_genre, :pet_genres)
-                            .where('name LIKE ?', "%#{params[:query]}%") 
-    else
-      @item_posts = ItemPost.includes(:item_genre, :pet_genres).all
+      @item_posts = @item_posts.where('item_posts.name LIKE ?', "%#{params[:query]}%")
     end
+  
+    if params[:item_genre_id].present?
+      @item_posts = @item_posts.where(item_genre_id: params[:item_genre_id])
+    end
+  
+    if params[:pet_genre_id].present?
+      @item_posts = @item_posts.joins(:pet_genres).where(pet_genres: { id: params[:pet_genre_id] })
+    end
+  
+    @item_posts = @item_posts.all
   end
+
 
   def show
     @item_post = ItemPost.find(params[:id])
