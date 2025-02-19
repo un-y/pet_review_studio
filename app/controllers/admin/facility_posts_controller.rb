@@ -14,6 +14,8 @@ class Admin::FacilityPostsController < ApplicationController
     end
   end
 
+  
+
   def show
     @facility_post = FacilityPost.find(params[:id])
     @facility_genres = FacilityGenre.all
