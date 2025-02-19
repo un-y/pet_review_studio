@@ -6,7 +6,20 @@
 
 <%= form_with(url: facility_posts_path, method: :get, local: true) do |form| %>
   <div>
-    <%= form.text_field :query, placeholder: '検索...', value: params[:query] %>
+    <%= form.text_field :query, placeholder: 'お店・施設名...', value: params[:query] %>
+  </div>
+
+  <div>
+    <%= form.label :facility_genre_id, 'お店・施設ジャンル' %>
+    <%= form.select :facility_genre_id, options_from_collection_for_select(FacilityGenre.all, :id, :name, params[:facility_genre_id]), include_blank: 'すべて' %>
+  </div>
+
+  <div>
+    <%= form.label :pet_genre_id, 'ペットジャンル' %>
+    <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
+  </div>
+
+  <div>
     <%= form.submit '検索' %>
   </div>
 <% end %>

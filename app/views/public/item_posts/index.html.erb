@@ -10,7 +10,7 @@
   </div>
 
   <div>
-    <%= form.label :item_genre_id, 'アイテムジャンル' %>
+    <%= form.label :item_genre_id, '商品ジャンル' %>
     <%= form.select :item_genre_id, options_from_collection_for_select(ItemGenre.all, :id, :name, params[:item_genre_id]), include_blank: 'すべて' %>
   </div>
 

@@ -6,12 +6,21 @@ class Admin::FacilityPostsController < ApplicationController
   end
 
   def index
+    @facility_posts = FacilityPost.includes(:item_genre, :pet_genres)
+  
     if params[:query].present?
-      @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres)
-                            .where('name LIKE ?', "%#{params[:query]}%") 
-    else
-      @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres).all
+      @facility_posts = @facility_posts.where('facility_posts.name LIKE ?', "%#{params[:query]}%")
     end
+  
+    if params[:facility_genre_id].present?
+      @facility_posts = @facility_posts.where(facility_genre_id: params[:facility_genre_id])
+    end
+  
+    if params[:pet_genre_id].present?
+      @facility_posts = @facility_posts.joins(:pet_genres).where(pet_genres: { id: params[:pet_genre_id] })
+    end
+  
+    @facility_posts = @facility_posts.all
   end
 
   
