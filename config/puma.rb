@@ -54,7 +54,5 @@ if Rails.env.production?
     true
   )
   # デーモン
-  if !File.exists?(pidfile)
     daemonize
-  end
 end
