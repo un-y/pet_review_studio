@@ -8,7 +8,7 @@ class Public::ItemPostsController < ApplicationController
   end
 
   def index
-    if params[:query],present?
+    if params[:query].present?
       @item_posts = ItemPost.includes(:item_genre, :pet_genres)
                             .where('name LIKE ?', "%#{params[:query]}%") 
     else
