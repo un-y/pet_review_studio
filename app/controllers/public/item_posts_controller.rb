@@ -11,7 +11,7 @@ class Public::ItemPostsController < ApplicationController
     @item_posts = ItemPost.includes(:item_genre, :pet_genres)
   
     if params[:query].present?
-      @item_posts = @item_posts.where('name LIKE ?', "%#{params[:query]}%")
+      @item_posts = @item_posts.where('item_posts.name LIKE ?', "%#{params[:query]}%")
     end
   
     if params[:item_genre_id].present?
