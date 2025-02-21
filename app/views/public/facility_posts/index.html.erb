@@ -2,17 +2,6 @@
   <%= flash[:notice] %>
 </div>
 
-<% if @facility_post.errors.any? %>
-  <ul class="alert alert-danger" role="alert">
-    <h6 class="alert-heading">
-      <%= @facility_post.errors.count %>error prohibited this obj from being saved:
-    </h6>
-    <% @facility_post.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
 <div class="col-md-8 offset-md-1">
   <h1>施設投稿一覧</h1>
 
