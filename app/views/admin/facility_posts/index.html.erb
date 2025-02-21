@@ -1,79 +1,91 @@
 <%= render 'admin/shared/list', items: @admin_facility_posts_path %>
 
-<h1>施設投稿一覧</h1>
-
-<%= form_with(url: admin_facility_posts_path, method: :get, local: true) do |form| %>
-  <div>
-    <%= form.text_field :query, placeholder: 'お店・施設名...', value: params[:query] %>
-  </div>
-
-  <div>
-    <%= form.label :facility_genre_id, 'お店・施設ジャンル' %>
-    <%= form.select :facility_genre_id, options_from_collection_for_select(FacilityGenre.all, :id, :name, params[:facility_genre_id]), include_blank: 'すべて' %>
-  </div>
-
-  <div>
-    <%= form.label :pet_genre_id, 'ペットジャンル' %>
-    <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
-  </div>
-
-  <div>
-    <%= form.submit '検索' %>
-  </div>
+<% if facility_post.errors.any? %>
+  <ul class="alert alert-danger" role="alert">
+    <h6 class="alert-heading">
+      <%= facility_post.errors.count %> error<%= facility_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
+    </h6>
+    <% facility_post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
 
-<ul>
-  <li>
-    <%= link_to "新規投稿", new_admin_facility_post_path %>
-  </li>
-</ul>
+<div class="col-md-8 offset-md-1">
+  <h1>施設投稿一覧</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>お店・施設名</th>
-      <th>所在地</th>
-      <th>営業時間</th>
-      <th>商品ジャンル</th>
-      <th>ペットジャンル</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @facility_posts.each do |facility_post| %>
-    <tr>
-      <td class="facility_post_image" ><%= link_to user_path(facility_post.user.id) do %>
-       
-        <% end %>
+  <%= form_with(url: admin_facility_posts_path, method: :get, local: true) do |form| %>
+    <div>
+      <%= form.text_field :query, placeholder: 'お店・施設名...', value: params[:query] %>
+    </div>
+
+    <div>
+      <%= form.label :facility_genre_id, 'お店・施設ジャンル' %>
+      <%= form.select :facility_genre_id, options_from_collection_for_select(FacilityGenre.all, :id, :name, params[:facility_genre_id]), include_blank: 'すべて' %>
+    </div>
+
+    <div>
+      <%= form.label :pet_genre_id, 'ペットジャンル' %>
+      <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
+    </div>
+
+    <div>
+      <%= form.submit '検索' %>
+    </div>
+  <% end %>
+
+  <ul>
+    <li>
+      <%= link_to "新規投稿", new_admin_facility_post_path %>
+    </li>
+  </ul>
+
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <th></th>
+        <th>お店・施設名</th>
+        <th>所在地</th>
+        <th>営業時間</th>
+        <th>商品ジャンル</th>
+        <th>ペットジャンル</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @facility_posts.each do |facility_post| %>
+      <tr>
+        <td class="facility_post_image" ><%= link_to user_path(facility_post.user.id) do %>
+        
+          <% end %>
+        </td>
+        <td class="facility_post-name"><%= link_to facility_post.name, facility_post_path(facility_post) %></td>
+        <td class="facility_post-address"><%= facility_post.address %></td>
+        <td class="facility_post-opening_time">
+          <%= facility_post.opening_time.present? ? facility_post.opening_time.strftime('%H:%M') : 'N/A' %>~
+          <%= facility_post.closing_time.present? ? facility_post.closing_time.strftime('%H:%M') : 'N/A' %>
+        </td>
+        <td class="facility_genre"><%= facility_post.facility_genre.name %></td>
+        <td class="pet_genre">
+          <% if facility_post.pet_genres.any? %>
+            <%= facility_post.pet_genres.map(&:name).join(', ') %>
+          <% else %>
+            なし
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
+        </td>
+        <td><%= link_to "編集", edit_admin_facility_post_path(facility_post) %></td>
+        <td>
+        <% if facility_post %>
+          <%= link_to "削除", admin_facility_post_path(facility_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% end %>    
       </td>
-      <td class="facility_post-name"><%= link_to facility_post.name, facility_post_path(facility_post) %></td>
-      <td class="facility_post-address"><%= facility_post.address %></td>
-      <td class="facility_post-opening_time">
-        <%= facility_post.opening_time.present? ? facility_post.opening_time.strftime('%H:%M') : 'N/A' %>~
-        <%= facility_post.closing_time.present? ? facility_post.closing_time.strftime('%H:%M') : 'N/A' %>
-      </td>
-      <td class="facility_genre"><%= facility_post.facility_genre.name %></td>
-      <td class="pet_genre">
-        <% if facility_post.pet_genres.any? %>
-          <%= facility_post.pet_genres.map(&:name).join(', ') %>
-        <% else %>
-          なし
-        <% end %>
-      </td>
-      <td>
-        <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
-      </td>
-      <td><%= link_to "編集", edit_admin_facility_post_path(facility_post) %></td>
-      <td>
-      <% if facility_post %>
-        <%= link_to "削除", admin_facility_post_path(facility_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-      <% end %>    
-    </td>
-    <% end %>
-    </tbody>
-</table>
+      <% end %>
+      </tbody>
+  </table>
   </div>
 </div>
 

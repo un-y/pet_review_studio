@@ -1,70 +1,81 @@
 <%= render 'admin/shared/list', items: @admin_item_posts_path %>
 
-<h1>商品投稿一覧</h1>
-
-<%= form_with(url: admin_item_posts_path, method: :get, local: true) do |form| %>
-  <div>
-    <%= form.text_field :query, placeholder: '商品名...', value: params[:query] %>
-  </div>
-
-  <div>
-    <%= form.label :item_genre_id, '商品ジャンル' %>
-    <%= form.select :item_genre_id, options_from_collection_for_select(ItemGenre.all, :id, :name, params[:item_genre_id]), include_blank: 'すべて' %>
-  </div>
-
-  <div>
-    <%= form.label :pet_genre_id, 'ペットジャンル' %>
-    <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
-  </div>
-
-  <div>
-    <%= form.submit '検索' %>
-  </div>
+<% if item_post.errors.any? %>
+  <ul class="alert alert-danger" role="alert">
+    <h6 class="alert-heading">
+      <%= item_post.errors.count %> error<%= item_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
+    </h6>
+    <% item_post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
 
-<ul>
-  <li>
-    <%= link_to "新規投稿", new_admin_item_post_path %>
-  </li>
-</ul>
+<div  class="col-md-8 offset-md-1">
+  <h1>商品投稿一覧</h1>
+  <%= form_with(url: admin_item_posts_path, method: :get, local: true) do |form| %>
+    <div>
+      <%= form.text_field :query, placeholder: '商品名...', value: params[:query] %>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>商品名</th>
-      <th>価格</th>
-      <th>商品ジャンル</th>
-      <th>ペットジャンル</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @item_posts.each do |item_post| %>
-    <tr>
-      <td>画像の予定</td>
-      <td class="item_post-name"><%= link_to item_post.name, admin_item_post_path(item_post) %></td>
-      <td class="item_post-prices"><%= item_post.prices %></td>
-      <td class="item_genre"><%= item_post.item_genre.name %></td>
-      <td class="pet_genre">
-        <% if item_post.pet_genres.any? %>
-          <%= item_post.pet_genres.map(&:name).join(', ') %>
-        <% else %>
-          なし
-        <% end %>
+    <div>
+      <%= form.label :item_genre_id, '商品ジャンル' %>
+      <%= form.select :item_genre_id, options_from_collection_for_select(ItemGenre.all, :id, :name, params[:item_genre_id]), include_blank: 'すべて' %>
+    </div>
+
+    <div>
+      <%= form.label :pet_genre_id, 'ペットジャンル' %>
+      <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
+    </div>
+
+    <div>
+      <%= form.submit '検索' %>
+    </div>
+  <% end %>
+
+  <ul>
+    <li>
+      <%= link_to "新規投稿", new_admin_item_post_path %>
+    </li>
+  </ul>
+
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <th></th>
+        <th>商品名</th>
+        <th>価格</th>
+        <th>商品ジャンル</th>
+        <th>ペットジャンル</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @item_posts.each do |item_post| %>
+      <tr>
+        <td>画像の予定</td>
+        <td class="item_post-name"><%= link_to item_post.name, admin_item_post_path(item_post) %></td>
+        <td class="item_post-prices"><%= item_post.prices %></td>
+        <td class="item_genre"><%= item_post.item_genre.name %></td>
+        <td class="pet_genre">
+          <% if item_post.pet_genres.any? %>
+            <%= item_post.pet_genres.map(&:name).join(', ') %>
+          <% else %>
+            なし
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
+        </td>
+        <td><%= link_to "編集", edit_admin_item_post_path(item_post) %></td>
+        <td>
+        <% if item_post %>
+          <%= link_to "削除", admin_item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% end %>    
       </td>
-      <td>
-        <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
-      </td>
-      <td><%= link_to "編集", edit_admin_item_post_path(item_post) %></td>
-      <td>
-      <% if item_post %>
-        <%= link_to "削除", admin_item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-      <% end %>    
-    </td>
-    </tr>
-    <% end %>
-    </tbody>
-</table>
+      </tr>
+      <% end %>
+      </tbody>
+  </table>
   </div>
 </div>
