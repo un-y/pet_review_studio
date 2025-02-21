@@ -1,11 +1,11 @@
 <%= render 'admin/shared/list', items: @admin_item_posts_path %>
 
-<% if item_post.errors.any? %>
+<% if @item_post.errors.any? %>
   <ul class="alert alert-danger" role="alert">
     <h6 class="alert-heading">
-      <%= item_post.errors.count %> error<%= item_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
+      <%= @item_post.errors.count %> error<%= @item_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
     </h6>
-    <% item_post.errors.full_messages.each do |message| %>
+    <% @item_post.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
   </ul>
