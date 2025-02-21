@@ -1,42 +1,48 @@
 <h3>Menu</h3>
 
-<h5>ユーザー</h5>
-<ul>
-  <li>
-    <%= link_to "ユーザー一覧", admin_users_path %>
-  </li>
-</ul>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <h5>ユーザー</h5>
+      <ul>
+        <li>
+          <%= link_to "ユーザー一覧", admin_users_path %>
+        </li>
+      </ul>
 
-<h5>投稿・レビュー</h5>
-<h6>商品</h6>
-<ul>
-  <li>
-    <%= link_to "新規投稿", new_admin_item_post_path %>
-  </li>
-  <li>
-    <%= link_to "投稿一覧", admin_item_posts_path %>
-  </li>
-  <li>
-   <%= link_to "ジャンル一覧", admin_item_genres_path %>
-  </li>
-</ul>
+      <h5>投稿・レビュー</h5>
+      <h6>商品</h6>
+      <ul>
+        <li>
+          <%= link_to "新規投稿", new_admin_item_post_path %>
+        </li>
+        <li>
+          <%= link_to "投稿一覧", admin_item_posts_path %>
+        </li>
+        <li>
+        <%= link_to "ジャンル一覧", admin_item_genres_path %>
+        </li>
+      </ul>
 
-<h6>お店・施設</h6>
-<ul>
-  <li>
-    <%= link_to "新規投稿", new_admin_facility_post_path %>
-  </li>
-  <li>
-    <%= link_to "投稿一覧", admin_facility_posts_path %>
-  </li>
-  <li>
-   <%= link_to "ジャンル一覧", admin_facility_genres_path %>
-  </li>
-</ul>
+      <h6>お店・施設</h6>
+      <ul>
+        <li>
+          <%= link_to "新規投稿", new_admin_facility_post_path %>
+        </li>
+        <li>
+          <%= link_to "投稿一覧", admin_facility_posts_path %>
+        </li>
+        <li>
+        <%= link_to "ジャンル一覧", admin_facility_genres_path %>
+        </li>
+      </ul>
 
-<h5>その他</h5>
-<ul>
-  <li>
-   <%= link_to "ペットジャンル一覧", admin_pet_genres_path %>
-  </li>
-</ul>
+      <h5>その他</h5>
+      <ul>
+        <li>
+        <%= link_to "ペットジャンル一覧", admin_pet_genres_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

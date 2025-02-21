@@ -6,74 +6,85 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://kit.fontawesome.com/02a74fdcb6.js" crossorigin="anonymous"></script>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p>lorem ipsum</p>
-
-    <header>
-      <ul>
-        <li>
-          <%= link_to "Pet Review studio", root_path %>
-        </li>
-      </ul>
-    <% if user_signed_in? %>
-      <ul>
-        <li>
-          <%= link_to "Top", root_path %>
-        </li>
-        <li>
-          <%= link_to "商品投稿一覧 ", item_posts_path %>
-        </li>
-        <li>
-          <%= link_to "施設投稿一覧", facility_posts_path%>
-        </li>
-        <li>
-          <%= link_to "My Page", users_mypage_path(@user) %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-      </ul>
-    <% elsif admin_signed_in? %>
-      <ul>
-        <li>
-          <%= link_to "Dashboards", admin_dashboards_path %>
-        </li>
-        <li>
-          <%= link_to "商品投稿一覧 ", admin_item_posts_path %>
-        </li>
-        <li>
-          <%= link_to "施設投稿一覧", admin_facility_posts_path%>
-        </li>
-        <li>
-          <%= link_to "ユーザー一覧", admin_users_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-      </ul>
-    <% else %>
-      <ul>
-        <li>
-          <%= link_to "Top", root_path %>
-        </li>
-        <li>
-          <%= link_to "商品投稿一覧 ", item_posts_path %>
-        </li>
-        <li>
-          <%= link_to "施設投稿一覧", facility_posts_path%>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-      </ul>
-      <% end %>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item fs-4">
+              <%= link_to "Pet Review studio", root_path, class: 'text-light h5' %>
+            </li>
+          </ul>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <% if user_signed_in? %>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item ml-3">
+                <%= link_to "Top", root_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "商品投稿一覧 ", item_posts_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "施設投稿一覧", facility_posts_path%>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "My Page", users_mypage_path(@user) %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+              </li>
+            </ul>
+          <% elsif admin_signed_in? %>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item ml-3">
+                <%= link_to "Dashboards", admin_dashboards_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "商品投稿一覧 ", admin_item_posts_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "施設投稿一覧", admin_facility_posts_path%>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "ユーザー一覧", admin_users_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item ml-3">
+                <%= link_to "Top", root_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "商品投稿一覧 ", item_posts_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "施設投稿一覧", facility_posts_path%>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "ログイン", new_user_session_path %>
+              </li>
+              <li class="nav-item ml-3">
+                <%= link_to "新規登録", new_user_registration_path %>
+              </li>
+            </ul>
+          <% end %>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <main>
