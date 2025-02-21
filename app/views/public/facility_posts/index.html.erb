@@ -2,10 +2,10 @@
   <%= flash[:notice] %>
 </div>
 
-<% if facility_post.errors.any? %>
+<% if @facility_post.errors.any? %>
   <ul class="alert alert-danger" role="alert">
     <h6 class="alert-heading">
-      <%= facility_post.errors.count %> error<%= facility_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
+      <%= @facility_post.errors.count %> error<%= @facility_post.errors.count > 1 ? 's' : '' %> prohibited this post from being saved:
     </h6>
     <% facility_post.errors.full_messages.each do |message| %>
       <li><%= message %></li>
