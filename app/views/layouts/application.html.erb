@@ -31,55 +31,55 @@
           <% if user_signed_in? %>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item ml-3">
-                <%= link_to "Top", root_path %>
+                <%= link_to "Top", root_path, class: 'text-light h5' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "商品投稿一覧 ", item_posts_path %>
+                <%= link_to "商品投稿一覧 ", item_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "施設投稿一覧", facility_posts_path%>
+                <%= link_to "施設投稿一覧", facility_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "My Page", users_mypage_path(@user) %>
+                <%= link_to "My Page", users_mypage_path(@user), class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'text-light' %>
               </li>
             </ul>
           <% elsif admin_signed_in? %>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item ml-3">
-                <%= link_to "Dashboards", admin_dashboards_path %>
+                <%= link_to "Dashboards", admin_dashboards_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "商品投稿一覧 ", admin_item_posts_path %>
+                <%= link_to "商品投稿一覧 ", admin_item_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "施設投稿一覧", admin_facility_posts_path%>
+                <%= link_to "施設投稿一覧", admin_facility_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "ユーザー一覧", admin_users_path %>
+                <%= link_to "ユーザー一覧", admin_users_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'text-light' %>
               </li>
             </ul>
           <% else %>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item ml-3">
-                <%= link_to "Top", root_path %>
+                <%= link_to "Top", root_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "商品投稿一覧 ", item_posts_path %>
+                <%= link_to "商品投稿一覧 ", item_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "施設投稿一覧", facility_posts_path%>
+                <%= link_to "施設投稿一覧", facility_posts_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "ログイン", new_user_session_path %>
+                <%= link_to "ログイン", new_user_session_path, class: 'text-light' %>
               </li>
               <li class="nav-item ml-3">
-                <%= link_to "新規登録", new_user_registration_path %>
+                <%= link_to "新規登録", new_user_registration_path, class: 'text-light' %>
               </li>
             </ul>
           <% end %>
