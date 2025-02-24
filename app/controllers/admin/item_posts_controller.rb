@@ -1,4 +1,5 @@
 class Admin::ItemPostsController < ApplicationController
+  before_action :authenticate_admin!
   def new
     @item_post = ItemPost.new
     @item_genres = ItemGenre.all
@@ -23,7 +24,6 @@ class Admin::ItemPostsController < ApplicationController
     @item_posts = @item_posts.all
   end
 
-
   def show
     @item_post = ItemPost.find(params[:id])
     @item_genres = ItemGenre.all
@@ -34,14 +34,23 @@ class Admin::ItemPostsController < ApplicationController
   def create
     @item_post = ItemPost.new(item_post_params)
     @item_post.user = current_user
+    if(@item_post.user.nil?)
+      @item_post.user = User.find_or_create_by!(email: current_admin.email) do |user|
+        password = SecureRandom.hex(10)
+        user.name = "Admin"
+        user.email = current_admin.email
+        user.password = password
+        user.password_confirmation = password
+      end
+    end
     if @item_post.save
       if params[:item_post][:pet_genre_ids].present?
         @item_post.pet_genres = PetGenre.where(id: params[:item_post][:pet_genre_ids])
       end
-      redirect_to @item_post
+      redirect_to admin_item_post_path(@item_post)
     else
       Rails.logger.debug "Item post errors: #{@item_post.errors.full_messages}"
-      render :new
+      render :new_admin_item_genres_path
     end
   end
 

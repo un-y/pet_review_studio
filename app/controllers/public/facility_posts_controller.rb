@@ -9,7 +9,7 @@ class Public::FacilityPostsController < ApplicationController
 
 
   def index
-    @facility_posts = FacilityPost.includes(:item_genre, :pet_genres)
+    @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres)
   
     if params[:query].present?
       @facility_posts = @facility_posts.where('facility_posts.name LIKE ?', "%#{params[:query]}%")

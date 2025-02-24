@@ -4,39 +4,43 @@
   <%= flash[:notice] %>
 </div>
 
-<h1>一般ユーザー一覧</h1>
+<div class="col-md-9">
+  <h3>一般ユーザー一覧</3>
 
-<%= form_with(url: admin_user_path, method: :get, local: true) do |form| %>
-  <div>
-    <%= form.text_field :query, placeholder: '検索...', value: params[:query] %>
-    <%= form.submit '検索' %>
-  </div>
-<% end %>
+  <%= form_with(url: admin_users_path(@uer), method: :get, local: true) do |form| %>
+    <div style="margin-bottom: 10px;">
+      <%= form.text_field :query, placeholder: 'ユーザー名...', value: params[:query], style: "font-size: 12px;" %>
+      <%= form.submit '検索', style: "font-size: 12px; padding: 2px 2px;"  %>
+    </div>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>名前</th>
-      <th>Email</th>
-      <th>会員ステータス</th>
-      <th></th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+  <table class="table table-hover table-inverse" style="font-size: 12px;">
+    <thead>
       <tr>
-        <td><%= link_to user.name, admin_user_path(user) %></td>
-        <td><%= user.email %></td>
-        <td>
-        <% if user.locked_at.present? %>
-          <span style="color: red;">退会</span>
-        <% else %>
-          <span style="color: green;">会員</span>
-        <% end %>
-        </td>
-        <td><%= link_to '編集', edit_admin_user_path(user) %></td>
+        <th>名前</th>
+        <th>Email</th>
+        <th>会員ステータス</th>
+        <th></th>
+
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, admin_user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td>
+          <% if user.locked_at.present? %>
+            <span style="color: red;">退会</span>
+          <% else %>
+            <span style="color: green;">会員</span>
+          <% end %>
+          </td>
+          <td><%= link_to '編集', edit_admin_user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>

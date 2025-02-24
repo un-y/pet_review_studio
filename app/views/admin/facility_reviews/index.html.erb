@@ -1,8 +1,11 @@
+<%= render 'admin/shared/list', items: @admin_facility_post_facility_review_path %>
+
 <div>
   <%= flash[:notice] %>
 </div>
 
-<h1>お店・施設レビュー一覧</h1>
+<div class="col-md-9">
+<h3>お店・施設レビュー一覧</h3>
 
 <% if @facility_reviews.present? %>
   <% @facility_reviews.each do |facility_review| %>
@@ -10,8 +13,13 @@
       <p><strong>評価:</strong> <%= facility_review.evaluation %> / 5</p>
       <p><strong>コメント:</strong> <%= facility_review.comment %></p>
       <p><strong>投稿者:</strong> <%= facility_review.user.name %></p>
+      
+      <div style="border-bottom: 1px solid black; padding-bottom: 10px;">
+      <%= link_to '編集', edit_admin_facility_post_facility_review_path(facility_review.facility_post_id, item_review), class: 'btn btn-primary btn-sm mb-1' %> | 
+      <%= link_to '削除', admin_facility_post_facility_review_path(facility_review.facility_post_id, faciltiy_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn  btn-danger btn-sm mb-1' %>
     </div>
-  <% end %>
+</div>
+<% end %>
 <% else %>
-  <p>まだレビューが投稿されていません。</p>
+<p>まだレビューが投稿されていません。</p>
 <% end %>

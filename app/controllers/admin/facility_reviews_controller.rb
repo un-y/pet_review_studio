@@ -1,4 +1,6 @@
 class Admin::FacilityReviewsController < ApplicationController
+  before_action :authenticate_admin!
+
   def new
     @facility_post = FacilityPost.find(params[:facility_post_id])
     @facility_reviews = @facility_post.facility_reviews

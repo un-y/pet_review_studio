@@ -1,34 +1,40 @@
 <%= render 'admin/shared/list', items: @admin_item_posts_path %>
 
-<div  class="col-md-8 offset-md-1">
-  <h1>商品投稿一覧</h1>
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<div  class="col-md-9">
+  <h3>商品投稿一覧</h3>
   <%= form_with(url: admin_item_posts_path, method: :get, local: true) do |form| %>
-    <div>
-      <%= form.text_field :query, placeholder: '商品名...', value: params[:query] %>
-    </div>
-
-    <div>
-      <%= form.label :item_genre_id, '商品ジャンル' %>
-      <%= form.select :item_genre_id, options_from_collection_for_select(ItemGenre.all, :id, :name, params[:item_genre_id]), include_blank: 'すべて' %>
-    </div>
-
-    <div>
-      <%= form.label :pet_genre_id, 'ペットジャンル' %>
-      <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて' %>
-    </div>
-
-    <div>
-      <%= form.submit '検索' %>
+    <div class="row">
+      <div class="col-md-3 d-flex align-items-end">
+        <%= form.text_field :query, placeholder: '商品名...', value: params[:query], class: "form-control", style: "font-size: 12px;" %>
+      </div>
+  
+      <div class="col-md-3 d-flex align-items-end">
+        <%= form.label :item_genre_id, '商品ジャンル', style: "font-size: 11px;" %>
+        <%= form.select :item_genre_id, options_from_collection_for_select(ItemGenre.all, :id, :name, params[:item_genre_id]), include_blank: 'すべて', class: "form-control" %>
+      </div>
+  
+      <div class="col-md-3 d-flex align-items-end">
+        <%= form.label :pet_genre_id, 'ペットジャンル', style: "font-size: 11px;" %>
+        <%= form.select :pet_genre_id, options_from_collection_for_select(PetGenre.all, :id, :name, params[:pet_genre_id]), include_blank: 'すべて', class: "form-control" %>
+      </div>
+  
+      <div class="col-md-3 d-flex align-items-end">
+        <%= form.submit '検索', style: "font-size: 12px; padding: 2px 2px;" %>
+      </div>
     </div>
   <% end %>
+  
+  <div style="padding-top: 10px; padding-bottom: 5px; text-align: right;">
+    <%= link_to "新規投稿", new_admin_item_post_path, class: "btn btn-info btn-sm mb-1 sign_in custom-btn" %>
+  </div>
 
-  <ul>
-    <li>
-      <%= link_to "新規投稿", new_admin_item_post_path %>
-    </li>
-  </ul>
 
-  <table class="table table-hover table-inverse">
+
+  <table class="table table-hover table-inverse" style="font-size: 12px;">
     <thead>
       <tr>
         <th></th>
@@ -54,17 +60,18 @@
           <% end %>
         </td>
         <td>
-          <%= link_to "レビュー一覧", admin_facility_post_facility_reviews_path(facility_post_id: @facility_post.id) %>
+          <%= link_to "レビュー一覧", admin_item_post_item_reviews_path(item_post_id: item_post.id) %>
         </td>
         <td><%= link_to "編集", edit_admin_item_post_path(item_post) %></td>
         <td>
-        <% if item_post %>
-          <%= link_to "削除", admin_item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-        <% end %>    
-      </td>
+          <% if item_post %>
+            <%= link_to "削除", admin_item_post_path(item_post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+          <% end %>    
+        </td>
       </tr>
       <% end %>
       </tbody>
   </table>
   </div>
+</div>
 </div>
