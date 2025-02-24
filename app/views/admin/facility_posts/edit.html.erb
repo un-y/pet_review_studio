@@ -1,17 +1,21 @@
 <%= render 'admin/shared/list', items: @admin_facility_posts_path %>
 
-<div  class="col-md-8 offset-md-1">
-  <h1>施設投稿編集画面</h1>
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<div class="col-md-9">
+  <h3>施設投稿編集画面</h3>
 
   <%= form_for @facility_post do |f| %>
-  <label>お店・施設名</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">お店・施設名</p>
     <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
 
-  <label>施設ジャンル</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">施設ジャンル</p>
     <%= f.select :facility_genre_id, options_from_collection_for_select(@facility_genres, :id, :name, @facility_post.facility_genre_id), prompt: "選択してください" %>
 
 
-  <label>ペットジャンル</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">ペットジャンル</p>
   <% @pet_genres.each do |pet_genre| %>
     <div>
       <%= f.check_box :pet_genre_ids, { multiple: true, include_hidden: false }, pet_genre.id, checked: @facility_post.pet_genres.include?(pet_genre) %>
@@ -19,25 +23,28 @@
     </div>
   <% end %>
 
-  <label>所在地</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">所在地</p>
     <%= f.text_field :address, autofocus: true, id:"address", placeholder:"address" %>
 
-  <label>営業時間</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">営業時間</p>
+
   <div class="time-field">
     <%= f.time_select :opening_time, { prompt: true, selected: @facility_post.opening_time } %> 〜
     <%= f.time_select :closing_time, { prompt: true, selected: @facility_post.closing_time } %>
   </div>
 
-    <label>施設説明</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">施設説明</p>
     <%= f.text_area :introduction, autofocus: true, id:"introduction", placeholder:"introduction" %>
 
-  <label>料金一覧</label>
+  <p style="margin-top: 10px; margin-bottom: 5px;">料金一覧</p>
     <%= f.text_area :prices, autofocus: true, id:"prices", placeholder:"prices" %>
 
     <div>
-      <%= f.submit '更新' %>
+      <%= f.submit '更新', style: "font-size: 14px; padding: 3px 5px;" %>
     </div>
 
-    <%= link_to "Back", admin_facility_post_path(@facility_post) %>
+    <div style="margin-top: 10px;">
+      <%= link_to "Back", admin_facility_post_path(@facility_post) %>
+    </div>
   <% end %>
 </div>

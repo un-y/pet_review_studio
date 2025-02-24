@@ -1,13 +1,24 @@
-<h2>施設ジャンル編集</h2>
+<%= render 'admin/shared/list', items: @new_admin_facility_genres_path %>
 
+<div>
+  <%= flash[:notice] %>
+</div>
 
-<label>ジャンル名</label>
-<%= form_with model: @facility_genre, url: admin_facility_genre_path(@facility_genre), method: :patch do |f| %>
-  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+<div  class="col-md-9">
+  <h3>施設ジャンル編集</h3>
 
-  <div>
-    <%= f.submit '更新' %>
-  </div>
+  <label style="margin-bottom: 10px;">ジャンル名</label>
+  <%= form_with model: @facility_genre, url: admin_facility_genre_path(@facility_genre), method: :patch do |f| %>
+    <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
 
-  <%= link_to "Back", admin_facility_genre_path(@facility_genre) %>
-<% end %>
+    <div style="margin-top: 10px;">
+      <%= f.submit '更新' %>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <%= link_to "Back", admin_facility_genre_path(@facility_genre) %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>

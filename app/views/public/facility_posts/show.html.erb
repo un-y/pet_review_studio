@@ -2,47 +2,54 @@
   <%= flash[:notice] %>
 </div>
 
-<h1>施設投稿詳細</h1>
-<h1><%= @facility_post.name %></h1>
+<div class="row">
+  <div class="col-md-9 mx-auto">
+    <h4 class="mt-3"><%= @facility_post.name %></h3>
 
-<p><strong>施設名:</strong> <%= @facility_post.name %></p>
-<p><strong>施設ジャンル:</strong> <%= @facility_post.facility_genre.name %></p>
-<p><strong>ペットジャンル:</strong>
-  <% if @facility_post.pet_genres.any? %>
-    <%= @facility_post.pet_genres.map(&:name).join(', ') %>
-  <% else %>
-    なし
-  <% end %>
-</p>
+    <div style="border-top: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
+    <p><strong>施設名:</strong> <%= @facility_post.name %></p>
+    <p><strong>施設ジャンル:</strong> <%= @facility_post.facility_genre.name %></p>
+    <p><strong>ペットジャンル:</strong>
+      <% if @facility_post.pet_genres.any? %>
+        <%= @facility_post.pet_genres.map(&:name).join(', ') %>
+      <% else %>
+        なし
+      <% end %>
+    </p>
 
-<% if @facility_post.opening_time.present? && @facility_post.closing_time.present? %>
-  <p><strong>営業時間:</strong> <%= @facility_post.opening_time.strftime("%H:%M") %> 〜 <%= @facility_post.closing_time.strftime("%H:%M") %></p>
-<% else %>
-  <p><strong>営業時間:</strong> 情報なし</p>
-<% end %>
-
-<p><strong>所在地:</strong> <%= @facility_post.address %></p>
-<p><strong>施設説明:</strong> <%= @facility_post.introduction %></p>
-<p><strong>料金一覧</strong><%= @facility_post.prices %></p>
-
-<%= link_to '編集', edit_facility_post_path(@facility_post) %> |
-<%= link_to 'Back', facility_posts_path %>
-
-<h2>商品レビュー一覧</h2>
-
-<%= link_to "レビュー投稿", new_facility_post_facility_review_path(@facility_post), class: "btn btn-primary" %>
-
-<% if @facility_reviews.any? %>
-  <% @facility_post.facility_reviews.each do |facility_review| %>
-    <div class="review">
-      <p><strong>評価:</strong><%= facility_review.evaluation %> / 5</p>
-      <p><strong>コメント:</strong><%= facility_review.comment %></p>
-      <p><strong>投稿者:</strong><%= facility_review.user.name %></p>
-      <p><strong>投稿日時:</strong><%= facility_review.created_at.strftime('%Y-%m-%d %H:%M') %></p>
-       <%= link_to '編集', edit_facility_post_facility_review_path(facility_review.facility_post_id, facility_review), class: 'btn btn-primary' %> | 
-    <%= link_to '削除', facility_post_facility_review_path(facility_review.facility_post_id, facility_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-    </div>
+    <% if @facility_post.opening_time.present? && @facility_post.closing_time.present? %>
+      <p><strong>営業時間:</strong> <%= @facility_post.opening_time.strftime("%H:%M") %> 〜 <%= @facility_post.closing_time.strftime("%H:%M") %></p>
+    <% else %>
+      <p><strong>営業時間:</strong> 情報なし</p>
     <% end %>
-<% else %>
-  <p>まだレビューはありません。</p>
-<% end %>
+
+    <p><strong>所在地:</strong> <%= @facility_post.address %></p>
+    <p><strong>施設説明:</strong> <%= @facility_post.introduction %></p>
+    <p><strong>料金一覧</strong><%= @facility_post.prices %></p>
+
+    <%= link_to '編集', edit_facility_post_path(@facility_post) %> |
+    <%= link_to 'Back', facility_posts_path %>
+    </div>
+
+    <div style="border-top: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
+    <h4>商品レビュー一覧</h4>
+
+    <%= link_to "レビュー投稿", new_facility_post_facility_review_path(@facility_post), class: "btn btn-info btn-sm mb-1 sign_in custom-btn" %>
+    </div>
+
+    <% if @facility_reviews.any? %>
+      <% @facility_post.facility_reviews.each do |facility_review| %>
+        <div class="review">
+          <p><strong>評価:</strong><%= facility_review.evaluation %> / 5</p>
+          <p><strong>コメント:</strong><%= facility_review.comment %></p>
+          <p><strong>投稿者:</strong><%= facility_review.user.name %></p>
+          <p><strong>投稿日時:</strong><%= facility_review.created_at.strftime('%Y-%m-%d %H:%M') %></p>
+          <%= link_to '編集', edit_facility_post_facility_review_path(facility_review.facility_post_id, facility_review), class: 'btn btn-primary btn-sm mb-1' %> | 
+        <%= link_to '削除', facility_post_facility_review_path(facility_review.facility_post_id, facility_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm mb-1' %>
+        </div>
+        <% end %>
+    <% else %>
+      <p>まだレビューはありません。</p>
+    <% end %>
+  </div>
+</div>

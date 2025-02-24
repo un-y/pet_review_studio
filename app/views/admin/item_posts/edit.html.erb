@@ -1,32 +1,42 @@
 <%= render 'admin/shared/list', items: @admin_item_posts_path %>
 
-<h1>商品投稿編集画面</h1>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-<%= form_for @item_post do |f| %>
-<label>商品名</label>
-  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+<div class="col-md-9">
+  <h3>商品投稿編集画面</h3>
 
-<label>商品ジャンル</label>
-  <%= f.select :item_genre_id, options_from_collection_for_select(@item_genres, :id, :name, @item_post.item_genre_id), prompt: "選択してください" %>
+  <%= form_for @item_post do |f| %>
+  <p style="margin-top: 10px; margin-bottom: 5px;">商品名</p>
+    <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+
+  <p style="margin-top: 10px; margin-bottom: 5px;">商品ジャンル</p>
+    <%= f.select :item_genre_id, options_from_collection_for_select(@item_genres, :id, :name, @item_post.item_genre_id), prompt: "選択してください" %>
 
 
-<label>ペットジャンル</label>
-<% @pet_genres.each do |pet_genre| %>
-  <div>
-    <%= f.check_box :pet_genre_ids, { multiple: true,include_hidden: false,  checked: @item_post.pet_genres.include?(pet_genre)}, pet_genre.id, nil %>
-    <%= f.label :pet_genre_ids, pet_genre.name, value: pet_genre.id %>
-  </div>
-<% end %>
+  <p style="margin-top: 10px; margin-bottom: 5px;">ペットジャンル</p>
+  <% @pet_genres.each do |pet_genre| %>
+    <div>
+      <%= f.check_box :pet_genre_ids, { multiple: true,include_hidden: false,  checked: @item_post.pet_genres.include?(pet_genre)}, pet_genre.id, nil %>
+      <%= f.label :pet_genre_ids, pet_genre.name, value: pet_genre.id %>
+    </div>
+  <% end %>
 
-<label>価格</label>
-  <%= f.text_field :prices, autofocus: true, id:"prices", placeholder:"prices" %>
+  <p style="margin-top: 10px; margin-bottom: 5px;">価格</p>
+    <%= f.text_field :prices, autofocus: true, id:"prices", placeholder:"prices" %>
 
-<label>商品説明</label>
-  <%= f.text_area :introduction, autofocus: true, id:"introduction", placeholder:"introduction" %>
+  <p style="margin-top: 10px; margin-bottom: 5px;">商品説明</p>
+    <%= f.text_area :introduction, autofocus: true, id:"introduction", placeholder:"introduction" %>
 
-  <div>
-    <%= f.submit '更新' %>
-  </div>
+    <div>
+      <%= f.submit '更新', style: "font-size: 14px; padding: 3px 5px;" %>
+    </div>
 
-  <%= link_to "Back", admin_item_post_path(@item_post) %>
-<% end %>
+    <div style="margin-top: 10px;">
+      <%= link_to "Back", admin_item_post_path(@item_post) %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>

@@ -1,4 +1,6 @@
 class Admin::FacilityPostsController < ApplicationController
+  before_action :authenticate_admin!
+
   def new
     @facility_post = FacilityPost.new
     @facility_genres = FacilityGenre.all
@@ -6,7 +8,7 @@ class Admin::FacilityPostsController < ApplicationController
   end
 
   def index
-    @facility_posts = FacilityPost.includes(:item_genre, :pet_genres)
+    @facility_posts = FacilityPost.includes(:facility_genre, :pet_genres)
   
     if params[:query].present?
       @facility_posts = @facility_posts.where('facility_posts.name LIKE ?', "%#{params[:query]}%")
@@ -23,8 +25,6 @@ class Admin::FacilityPostsController < ApplicationController
     @facility_posts = @facility_posts.all
   end
 
-  
-
   def show
     @facility_post = FacilityPost.find(params[:id])
     @facility_genres = FacilityGenre.all
@@ -36,12 +36,21 @@ class Admin::FacilityPostsController < ApplicationController
   def create
     @facility_post = FacilityPost.new(facility_post_params)
     @facility_post.user = current_user
+    if(@facility_post.user.nil?)
+      @facility_post.user = User.find_or_create_by!(email: current_admin.email) do |user|
+        password = SecureRandom.hex(10)
+        user.name = "Admin"
+        user.email = current_admin.email
+        user.password = password
+        user.password_confirmation = password
+      end
+    end
 
     if @facility_post.save
       if params[:facility_post][:pet_genre_ids].present?
         @facility_post.pet_genres = PetGenre.where(id: params[:facility_post][:pet_genre_ids])
       end
-      redirect_to @facility_post
+      redirect_to admin_facility_post_path(@facility_post)
     else
       Rails.logger.debug "Facility post errors: #{@facility_post.errors.full_messages}"
       render :new
@@ -69,7 +78,7 @@ class Admin::FacilityPostsController < ApplicationController
 
   def destroy
     @facility_post = FacilityPost.find(params[:id])
-    @facility_post.destroy
+    @facility_post.destroy!
     redirect_to facility_posts_path
   end
 

@@ -1,18 +1,26 @@
 <%= render 'admin/shared/list', items: @admin_user_path %>
 
-<h1>ユーザー情報編集</h1>
-<%= form_for @user, url: admin_user_path(@user), method: :patch do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  
-  <div>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-  <div>
-    <%= f.submit '更新' %>
-  </div>
-<% end %>
+<div class="col-md-9">
+  <h3>ユーザー情報編集</h3>
+  <%= form_for @user, url: admin_user_path(@user), method: :patch do |f| %>
+    <div style="margin-bottom: 10px;">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    
+    <div style="margin-bottom: 10px;">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div>
+      <%= f.submit '更新', style: "font-size: 12px; padding: 2px 4px;" %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>

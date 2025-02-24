@@ -1,14 +1,24 @@
-<h1>レビュー編集</h1>
+<%= render 'admin/shared/list', items: @admin_facility_post_facility_review_path %>
 
-<%= form_for([@facility_post, @facility_review]) do |facility_review| %>
-  <label>評価</label>
-    <%= facility_review.number_field :evaluation, in: 1..5 %>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-  <label>コメント</label>
-    <%= facility_review.text_area :comment %> 
+<div class="col-md-9">
+  <h3>レビュー編集</h3>
 
-  <div>
-    <%= facility_review.submit "更新する" %>
-  </div>
+  <%= form_for([@facility_post, @facility_review]) do |facility_review| %>
+    <p style="margin-top: 10px; margin-bottom: 5px;">評価</p>
+      <%= facility_review.number_field :evaluation, in: 1..5 %>
 
-<% end %>
+    <p style="margin-top: 10px; margin-bottom: 5px;">コメント</p>
+      <%= facility_review.text_area :comment %> 
+
+    <div>
+      <%= facility_review.submit "更新する", style: "font-size: 14px; padding: 3px 5px;" %>
+    </div>
+
+  <% end %>
+</div>
+</div>
+</div>

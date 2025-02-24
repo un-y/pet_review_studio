@@ -64,7 +64,10 @@ private
 
   def set_user
     @user = User.find_by(id: params[:id])
-    redirect_to admin_users_path, alert: "指定されたユーザーが見つかりません。" if @user.nil?
+    if @user.nil?
+      redirect_to admin_users_path, alert: "指定されたユーザーが見つかりません。"
+      return # リダイレクト後に他の処理が実行されないようにする
+    end
   end
 
   def user_params

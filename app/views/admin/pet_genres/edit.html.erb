@@ -1,13 +1,25 @@
-<h2>ペットジャンル編集</h2>
+<%= render 'admin/shared/list', items: @admin_pet_genres_path %>
+
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<div class="col-md-9">
+  <h3>ペットジャンル編集</h3>
 
 
-<label>ジャンル名</label>
-<%= form_with model: @pet_genre, url: admin_pet_genre_path(@pet_genre), method: :patch do |f| %>
-  <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
+  <label style="margin-bottom: 10px;">ジャンル名</label>
+  <%= form_with model: @pet_genre, url: admin_pet_genre_path(@pet_genre), method: :patch do |f| %>
+    <%= f.text_field :name, autofocus: true, id:"name", placeholder:"name" %>
 
-  <div>
-    <%= f.submit '更新' %>
-  </div>
+    <div style="margin-top: 10px;">
+      <%= f.submit '更新', class:'btn btn-success', style: "font-size: 14px; padding: 3px 8px;" %>
+    </div>
 
-  <%= link_to "Back", admin_pet_genre_path(@pet_genre) %>
-<% end %>
+    <div style="margin-top: 10px;">
+      <%= link_to "Back", admin_pet_genre_path(@pet_genre) %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>
