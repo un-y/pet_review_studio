@@ -15,7 +15,7 @@
 
             <div style="border-bottom: 1px solid black; padding-bottom: 10px;">
             <%= link_to '編集', edit_facility_post_facility_review_path(facility_review.facility_post_id, facility_review), class: 'btn btn-primary btn-sm mb-1' %> | 
-            <%= link_to '削除', facilityitem_post_facility_review_path(facility_review.facility_post_id, facility_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm mb-1' %>
+            <%= link_to '削除', facility_post_facility_review_path(facility_review.facility_post_id, facility_review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm mb-1' %>
           </div>
         </div>
       <% end %>
